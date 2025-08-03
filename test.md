@@ -1,4 +1,8 @@
-# <img src="https://raw.githubusercontent.com/filebrowser/logo/master/banner.png" alt="File Browser" width="500">
+<a href="https://github.com/filebrowser/filebrowser" target="_blank" rel="noopener noreferrer">
+  <img src="https://raw.githubusercontent.com/filebrowser/logo/master/banner.png" alt="File Browser" width="500">
+</a>
+
+[GitHub](https://github.com/filebrowser/filebrowser) | [Documentation](https://filebrowser.org)
 
 ## Installation (with Docker Compose)
 
@@ -8,37 +12,40 @@ Update the system and install Docker and Docker Compose
 
 ### Create config directory
 
-```
+```bash
 cd </path/to/apps/directory>
 ```
 
-```
+```bash
 mkdir -p filebrowser/config && cd $_
 ```
 
 ### Create database file
 
-Create an empty database file manually as the automatic creation (when processing the docker-compose.yml file) would create a folder instead of a file.
+Create an empty database file:
 
-```
+```bash
 touch filebrowser.db
 ```
 
+> :bell:
+> You have to create the database file manually as the automatic creation (when processing the docker-compose.yaml file) would create a folder instead of a file.
+
 ### Create config file
 
-Create a config file with the specified content.
+Create a config file with the specified content:
 
-```
-nano .filebrowser.json
+```bash
+nano settings.json
 ```
 
-```
+```json
 {
   "port": 80,
   "baseURL": "",
   "address": "",
   "log": "stdout",
-  "database": "/database.db",
+  "database": "/database/filebrowser.db",
   "root": "/srv"
 }
 ```
@@ -46,9 +53,11 @@ nano .filebrowser.json
 ### (Optional) Provide custom logo
 
 :bell: NOTE:
-The custom logo must be a SVG file and have the name logo.svg.
+The custom logo must be a SVG file and have the name `logo.svg`.
 
-```
+Create custom images directory
+
+```bash
 mkdir -p branding/img
 ```
 
@@ -58,12 +67,32 @@ Copy your custom logo to
 </path/to/apps/directory>/filebrowser/config/branding/img
 ```
 
-### docker-compose.yml
-
 ```
+Folder structure
+----------------
+/mnt
+ └── nas-media
+      ├── Bibliothek
+      │    ├── Filme
+      │    └── Serien
+      └── Downloads
+           └── incomplete
+/srv
+ └── configs
+      ├── overseerr
+      ├── radarr
+      ├── sonarr
+      ├── prowlarr
+      └── sabnzbd
+```
+
+### docker-compose.yaml
+
+```yaml
 services:
   filebrowser:
-    image: filebrowser/filebrowser
+    image: filebrowser/filebrowser:s6
+    container_name: filebrowser
     restart: unless-stopped
     ports:
       - 8080:80
@@ -72,8 +101,8 @@ services:
       - PGID=0 # 'root' user group ID in a Proxmox container
     volumes:
       # Configuration
-      - </path/to/apps/directory>/filebrowser/config/filebrowser.db:/database.db
-      - </path/to/apps/directory>/filebrowser/config/.filebrowser.json:/.filebrowser.json
+      - </path/to/apps/directory>/filebrowser/config:/database
+      - </path/to/apps/directory>/filebrowser/config:/config
       # Custom branding
       #- </path/to/apps/directory>/filebrowser/config/branding:/branding
       # Data
