@@ -13,27 +13,22 @@ Update the system and install Docker and Docker Compose
 ### Create config directory
 
 ```bash
-cd </path/to/apps/directory>
+cd </path/to/apps/folder>
 ```
 
 ```bash
 mkdir -p filebrowser/config && cd $_
 ```
 
-### Create database file
-
-Create an empty database file:
+### Create empty database file
 
 ```bash
 touch filebrowser.db
 ```
 
-> :bell:
-> You have to create the database file manually as the automatic creation (when processing the docker-compose.yaml file) would create a folder instead of a file.
+> :bell: Create the database file manually bacause the automatic creation (when processing the docker-compose.yaml file) may create a folder instead of a file.
 
 ### Create config file
-
-Create a config file with the specified content:
 
 ```bash
 nano settings.json
@@ -52,19 +47,10 @@ nano settings.json
 
 ### (Optional) Provide custom logo
 
-:bell: NOTE:
-The custom logo must be a SVG file and have the name `logo.svg`.
-
-Create custom images directory
+> :bell: The custom logo must be a SVG file and have the name `logo.svg`.
 
 ```bash
 mkdir -p branding/img
-```
-
-Copy your custom logo to
-
-```
-</path/to/apps/directory>/filebrowser/config/branding/img
 ```
 
 ```
@@ -101,10 +87,10 @@ services:
       - PGID=0 # 'root' user group ID in a Proxmox container
     volumes:
       # Configuration
-      - </path/to/apps/directory>/filebrowser/config:/database
-      - </path/to/apps/directory>/filebrowser/config:/config
+      - </path/to/apps/folder>/filebrowser/config:/database
+      - </path/to/apps/folder>/filebrowser/config:/config
       # Custom branding
-      #- </path/to/apps/directory>/filebrowser/config/branding:/branding
+      #- </path/to/apps/folder>/filebrowser/config/branding:/branding
       # Data
       - /home:/srv # Root directory. Change to refer to your preferred location.
       #- /dev/sbc/documents:/srv/MyDocuments # Additional directory
