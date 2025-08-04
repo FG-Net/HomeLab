@@ -8,44 +8,71 @@
 
 ### Preparations
 
-Update the system and install Docker and Docker Compose
+Update the system and install Docker and Docker Compose.
 
-### Create config directory
+### Create folder structure
 
-```bash
-cd </path/to/apps/folder>
-```
+:bell: Replace `</path/to>` with your preferred path.
 
 ```bash
-mkdir -p filebrowser/config && cd $_
+mkdir -p </path/to>/filebrowser/{database,config,config/branding/img/icons}
 ```
 
-### Create empty database file
+Folder structure:
+```text
+</path/to>
+└── filebrowser
+    ├── config
+    |   └── branding
+    |       └── img
+    |           └── icons
+    └── database
+```
+---
+### docker-compose.yaml
+
+:bell: Replace `</path/to>` with your preferred path.
+
+:bell: Uncomment the `Custom branding` volume mapping line if you want to use your own logo.
+
+```yaml
+services:
+  filebrowser:
+    image: filebrowser/filebrowser:s6
+    container_name: filebrowser
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    environment:
+      - PUID=0 # 'root' user ID in a Proxmox container
+      - PGID=0 # 'root' user group ID in a Proxmox container
+    volumes:
+      # Configuration
+      - </path/to/>/filebrowser/database:/database
+      - </path/to/>/filebrowser/config:/config
+      # [Optional] Custom branding
+      #- </path/to/>/filebrowser/config/branding:/branding
+      # Data
+      - /home:/srv # Root directory. Change to refer to your preferred location.
+      #- /dev/sbc/documents:/srv/MyDocuments # Additional directory
+      #- /dev/sdc1:/srv/MyDrive # Additional directory refering to a disk
+```
+---
+
+### First login
+
+Check the Docker container logs to find the default username and password.
 
 ```bash
-touch filebrowser.db
+docker logs filebrowser
 ```
+---
 
-> :bell: Create the database file manually bacause the automatic creation (when processing the docker-compose.yaml file) may create a folder instead of a file.
 
-### Create config file
 
-```bash
-nano settings.json
-```
 
-```json
-{
-  "port": 80,
-  "baseURL": "",
-  "address": "",
-  "log": "stdout",
-  "database": "/database/filebrowser.db",
-  "root": "/srv"
-}
-```
 
-### (Optional) Provide custom logo
+### [Optional] Provide custom logo
 
 > :bell: The custom logo must be a SVG file and have the name `logo.svg`.
 
@@ -72,30 +99,7 @@ Folder structure
       └── sabnzbd
 ```
 
-### docker-compose.yaml
 
-```yaml
-services:
-  filebrowser:
-    image: filebrowser/filebrowser:s6
-    container_name: filebrowser
-    restart: unless-stopped
-    ports:
-      - 8080:80
-    environment:
-      - PUID=0 # 'root' user ID in a Proxmox container
-      - PGID=0 # 'root' user group ID in a Proxmox container
-    volumes:
-      # Configuration
-      - </path/to/apps/folder>/filebrowser/config:/database
-      - </path/to/apps/folder>/filebrowser/config:/config
-      # Custom branding
-      #- </path/to/apps/folder>/filebrowser/config/branding:/branding
-      # Data
-      - /home:/srv # Root directory. Change to refer to your preferred location.
-      #- /dev/sbc/documents:/srv/MyDocuments # Additional directory
-      #- /dev/sdc1:/srv/MyDrive # Additional directory refering to a disk
-```
 
 ## After installation
 
