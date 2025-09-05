@@ -1,10 +1,10 @@
-# SSH Access for Root in a Proxmox LXC
+# SSH Access for root in a Proxmox LXC
 
-:information_source: Debian/Ubuntu
+:information_source: For Debian/Ubuntu
 
-:warning: Root login via password ➔ **insecure**
+:warning: **Not safe:** root login via password
 
-## 1. Install SSH (if not already installed)
+## Install SSH (if not already installed)
 
 ```bash
 apt update
@@ -13,7 +13,7 @@ systemctl enable ssh
 systemctl start ssh
 ```
 
-## 2. Configure SSH
+## Configure SSH
 
 ```bash
 nano /etc/ssh/sshd_config
@@ -26,13 +26,13 @@ PasswordAuthentication yes
 ```
 (remove `#` if commented out):
 
-## 3. Restart SSH
+## Restart SSH
 
 ```bash
 systemctl restart ssh
 ```
 
-## 4. Test connection  
+## Test connection  
 
 From client (e.g. Windows CMD/PowerShell):  
 
