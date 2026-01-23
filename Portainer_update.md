@@ -4,7 +4,7 @@ Documentation: https://docs.portainer.io/start/upgrade/docker
 
 ## Portainer Server
 
-- Stop and remove the old version
+- #### Stop and remove the old version:
 
   ```bash
   docker stop portainer
@@ -14,13 +14,13 @@ Documentation: https://docs.portainer.io/start/upgrade/docker
   docker rm portainer
   ```
 
-- (Optional) Update the system
+- #### (Optional) Update the system:
 
   ```bash
   apt update && apt upgrade -y && apt autoremove -y && apt autoclean -y
   ```
 
-- Pull and start the new version
+- #### Pull and start the new version:
 
   ```bash
   docker pull portainer/portainer-ce:lts
@@ -32,7 +32,7 @@ Documentation: https://docs.portainer.io/start/upgrade/docker
 
 ## Portainer Agent
 
-- Stop and remove the old version
+- #### Stop and remove the old version:
 
   ```bash
   docker stop portainer_agent
@@ -42,13 +42,13 @@ Documentation: https://docs.portainer.io/start/upgrade/docker
   docker rm portainer_agent
   ```
 
-- (Optional) Update the system
+- #### (Optional) Update the system:
 
   ```bash
   apt update && apt upgrade -y && apt autoremove -y && apt autoclean -y
   ```
 
-- Pull and start the new version
+- #### Pull and start the new version:
 
   ```bash
   docker pull portainer/agent:lts
