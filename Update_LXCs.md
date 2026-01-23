@@ -13,7 +13,7 @@
 
 ## 2️⃣ In LXC Container
 
-- #### If Nextcloud AIO:
+- #### For Nextcloud AIO LXC:
 
   - Update via ```Nextcloud AIO Interface``` first
 
@@ -41,7 +41,7 @@
   </details>
 
   <details>
-  <summary>Other LXC (Portainer Agent)</summary>
+  <summary>Other LXC (with Portainer Agent)</summary>
 
   ```bash
   docker stop portainer_agent && \
