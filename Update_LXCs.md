@@ -13,6 +13,10 @@
 
 ## 2️⃣ In LXC Container
 
+- #### If Nextcloud AIO:
+
+  - Update via ```Nextcloud AIO Interface``` first
+
 - #### Update the system:
 
   ```bash
@@ -57,6 +61,5 @@
 
 ## 3️⃣ In Portainer
 
-- #### Re-Deploy
-
-- #### Remove unused images
+- Update and redeploy stack(s)
+- Remove unused images
