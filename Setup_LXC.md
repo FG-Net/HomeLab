@@ -1,4 +1,4 @@
-# Setup New LXC Container
+# Setup New LXC
 
 ---
 
