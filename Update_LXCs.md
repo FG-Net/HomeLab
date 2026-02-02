@@ -2,16 +2,16 @@
 
 ---
 
-## 1️⃣ Proxmox Backup Server
+## 1️⃣ In Proxmox Backup Server:
 
 - #### Mark the last backup of the LXC:
 
-  - Set comment to 'Before update'
+  - Set comment (e.g. 'Before update on ...')
   - (Optional) Enable prune protection
 
 ---
 
-## 2️⃣ In LXC
+## 2️⃣ In LXC:
 
 - #### For Nextcloud AIO LXC:
 
@@ -59,7 +59,7 @@
 
 ---
 
-## 3️⃣ In Portainer
+## 3️⃣ In Portainer:
 
 - Update and redeploy stack(s)
 - Remove unused images
