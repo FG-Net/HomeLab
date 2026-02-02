@@ -1,17 +1,17 @@
-# Update LXCs
+# Update LXC
 
 ---
 
 ## 1️⃣ Proxmox Backup Server
 
-- #### Mark the last backup of the LXC container:
+- #### Mark the last backup of the LXC:
 
   - Set comment to 'Before update'
   - (Optional) Enable prune protection
 
 ---
 
-## 2️⃣ In LXC Container
+## 2️⃣ In LXC
 
 - #### For Nextcloud AIO LXC:
 
