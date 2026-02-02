@@ -1,4 +1,4 @@
-# Updating LXC Containers
+# Update LXCs
 
 ---
 
