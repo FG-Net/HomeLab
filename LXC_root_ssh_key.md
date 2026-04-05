@@ -8,12 +8,23 @@
 flowchart LR
     subgraph "&nbsp;"
         direction LR
-        A["<b>SSH Client</b><br>🔑 SSH Private Key"]
-        B["<b>SSH Server (Host)</b><br>🔑 SSH Public Key"]
+        A["<b>SSH Client</b><br><hr>🔑 SSH Private Key"]
+        B["<b>SSH Server (Host)</b><br><hr>🔑 SSH Public Key"]
     end
 
     A -->|"&nbsp;SSH connection&nbsp;"| B
 ```
+
+## 0️⃣ On both SSH server (host) and client LXCs:
+
+- #### Install SSH (if not already installed)
+
+  ```bash
+  apt update
+  apt install openssh-server -y
+  systemctl enable ssh
+  systemctl start ssh
+  ```
 
 ---
 
