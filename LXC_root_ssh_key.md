@@ -82,7 +82,7 @@ flowchart LR
   ```
   👉 To use the default SSH port, either set `<port>` to `22` or omit the `-p <port>` option entirely
 
-  ➜ The public key will be added to `/root/.ssh/authorized_keys`
+  ➜ The public key will be added to `/root/.ssh/authorized_keys` on the SSH server (host)
 
 - #### Test SSH connection
 
