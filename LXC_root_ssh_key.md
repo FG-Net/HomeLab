@@ -41,7 +41,6 @@ flowchart LR
   PermitRootLogin yes
   PasswordAuthentication yes
   ```
-  (remove `#` if commented out)
 
 - #### Restart SSH
 
@@ -62,10 +61,18 @@ flowchart LR
 
 ## 2️⃣ On SSH client LXC:
 
-- #### Generate SSH keys (e.g. in `/root/.ssh/`)
+- #### Optional: Generate new SSH keys (e.g. in `/root/.ssh/`)
 
   ```bash
   ssh-keygen -t ed25519 -f /root/.ssh/<key-name> -N "" -C "<key-comment>"
+  ```
+
+  ➜ The keys will be created in `/root/.ssh/`
+  ```
+  /root
+    └── .ssh
+          ├── <key-name>
+          └── <key-name>.pub
   ```
 
 - #### Copy public SSH key to SSH server (host)
@@ -74,6 +81,8 @@ flowchart LR
   ssh-copy-id -p <port> -i /root/.ssh/<key-name>.pub -s root@<host-lxc-ip-address>
   ```
   👉 To use the default SSH port, either set `<port>` to `22` or omit the `-p <port>` option entirely
+
+  ➜ The public key will be added to `/root/.ssh/authorized_keys`
 
 - #### Test SSH connection
 
@@ -116,7 +125,7 @@ flowchart LR
 
   Set:  
   ```
-  PermitRootLogin yes
+  PermitRootLogin prohibit-password
   # PasswordAuthentication yes
   ```
 
