@@ -75,6 +75,18 @@ flowchart LR
           └── <key-name>.pub
   ```
 
+  Set access permissions for the keys
+
+  | Key | Access Permissions |
+  | :--- | :--- |
+  | /root/.ssh/&lt;key-name&gt; | 600 (owner: rw, group: -, others: -) |
+  | /root/.ssh/&lt;key-name&gt;.pub | 644 (owner: rw, group: r, others: r) |
+
+  ```bash
+  chmod 600 /root/.ssh/<key-name>
+  chmod 644 /root/.ssh/<key-name>.pub
+  ```
+
 - #### Copy public SSH key to SSH server (host)
 
   ```bash
