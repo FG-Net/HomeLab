@@ -147,7 +147,7 @@ flowchart TD
 
     |Attribut|Wert|
     |---|---|
-    |Name|`ShellyPro3EM Leistung Import (korrekt saldiert)`|
+    |Name|`ShellyPro3EM Energie Import (korrekt saldiert)`|
     |Metrisches Präfix|`k (kilo)`|
     |Zeiteinheit |`Stunden`|
     |Eingangssensor|`sensor.shellypro3em_leistung_import`|
@@ -164,7 +164,7 @@ flowchart TD
 
     |Attribut|Wert|
     |---|---|
-    |Name|`ShellyPro3EM Leistung Export (korrekt saldiert)`|
+    |Name|`ShellyPro3EM Energie Export (korrekt saldiert)`|
     |Metrisches Präfix|`k (kilo)`|
     |Zeiteinheit |`Stunden`|
     |Eingangssensor|`sensor.shellypro3em_leistung_export`|
