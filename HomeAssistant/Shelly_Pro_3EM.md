@@ -16,72 +16,7 @@
 
 ## Übersicht
 
-```mermaid
-flowchart TD
-
-    subgraph SHELLY["<b>Shelly Pro 3EM Integrastionssensoren</b>"]
-        SHELLY_LEISTUNG["<b>&quot;Leistung&quot;</b><br><code style="background-color:transparent;">sensor.shellypro3em_xyz_leistung</code>"]
-        SHELLY_ENERGIE_IMPORT["<b>&quot;Energie&quot;</b><br><code style="background-color:transparent;">sensor.shellypro3em_xyz_energie</code>"]
-        SHELLY_ENERGIE_EXPORT["<b>&quot;Energieeinspeisung&quot;</b><br><code style="background-color:transparent;">sensor.shellypro3em_xyz_energieeinspeisung</code>"]
-        X["🚫<br>Werte entsprechen nicht dem Haushaltsstromzähler!"]
-    end
-
-    subgraph SENSORS["<b>Sensoren</b>"]
-        LEISTUNG["Abstraktion<br>Template-Sensor<br><b>&quot;Haus Stromzähler Leistung&quot;</b>"]
-        ENERGIE_IMPORT["Abstraktion<br>Template-Sensor<br><b>&quot;Haus Stromzähler Energie Import&quot;</b>"]
-        ENERGIE_EXPORT["Abstraktion<br>Template-Sensor<br><b>&quot;Haus Stromzähler Energie Export&quot;</b>"]
-
-        subgraph SHELLY_SENSORS["<b>Shelly Pro 3EM Berechnungssensoren</b>"]
-            LEISTUNG_IMPORT["Template-Sensor<br><b>&quot;ShellyPro3EM Leistung Import&quot;</b>"]
-            LEISTUNG_EXPORT["Template-Sensor<br><b>&quot;ShellyPro3EM Leistung Export&quot;</b>"]
-            ENERGIE_IMPORT_SALDIERT["Integral-Sensor<br><b>&quot;ShellyPro3EM Energie Import (korrekt saldiert)&quot;</b>"]
-            ENERGIE_EXPORT_SALDIERT["Integral-Sensor<br><b>&quot;ShellyPro3EM Energie Export (korrekt saldiert)&quot;</b>"]
-        end
-    end
-
-    subgraph UTILITY_METER["<b>Verbrauchszähler-Sensoren</b>"]
-        ENERGIE_IMPORT_PRO_TAG["&quot;Haus Stromzähler Energie Import pro Tag&quot;"]
-        ENERGIE_EXPORT_PRO_TAG["&quot;Haus Stromzähler Energie Export pro Tag&quot;"]
-    end
-
-    subgraph DASHBOARD["<b>Energie-Dashboard</b>"]
-        DASHBOARD_LEISTUNG["Leistungsmessung"]
-        DASHBOARD_ENERGIE_IMPORT["Aus dem Netz<br>bezogene Energie"]
-        DASHBOARD_ENERGIE_EXPORT["In das Netz<br>eingespeiste Energie"]
-    end
-
-    SHELLY_LEISTUNG ---> LEISTUNG
-    SHELLY_ENERGIE_IMPORT -.- X
-    SHELLY_ENERGIE_EXPORT -.- X
-    LEISTUNG --> LEISTUNG_IMPORT
-    LEISTUNG --> LEISTUNG_EXPORT
-    LEISTUNG_IMPORT --> ENERGIE_IMPORT_SALDIERT
-    LEISTUNG_EXPORT --> ENERGIE_EXPORT_SALDIERT
-    ENERGIE_IMPORT_SALDIERT --> ENERGIE_IMPORT
-    ENERGIE_EXPORT_SALDIERT --> ENERGIE_EXPORT
-    LEISTUNG --> DASHBOARD_LEISTUNG
-    ENERGIE_IMPORT --> DASHBOARD_ENERGIE_IMPORT
-    ENERGIE_EXPORT --> DASHBOARD_ENERGIE_EXPORT
-    ENERGIE_IMPORT --> ENERGIE_IMPORT_PRO_TAG
-    ENERGIE_EXPORT --> ENERGIE_EXPORT_PRO_TAG
-
-    linkStyle 12 stroke-width:2px,stroke-dasharray: 5 5;
-    linkStyle 13 stroke-width:2px,stroke-dasharray: 5 5;
-
-    classDef optional stroke-width:2px,stroke-dasharray: 5 5;
-    class UTILITY_METER,ENERGIE_IMPORT_PRO_TAG,ENERGIE_EXPORT_PRO_TAG optional;
-
-    classDef hw_sensors fill:#E1F5FE;
-    class SHELLY_LEISTUNG,SHELLY_ENERGIE_IMPORT,SHELLY_ENERGIE_EXPORT hw_sensors;
-
-    classDef helper_sensors fill:#FFF3CD;
-    class LEISTUNG_IMPORT,LEISTUNG_EXPORT,ENERGIE_IMPORT_SALDIERT,ENERGIE_EXPORT_SALDIERT helper_sensors;
-
-    classDef dashboard fill:transparent;
-    class DASHBOARD_LEISTUNG,DASHBOARD_ENERGIE_IMPORT,DASHBOARD_ENERGIE_EXPORT,ENERGIE_IMPORT_PRO_TAG,ENERGIE_EXPORT_PRO_TAG dashboard;
-
-    style X fill:none,stroke:#f00,color:#f00;
-```
+![HomeAssistant: Shelly Pro 3EM](images/HA_ShellyPro3EM.svg)
 
 ---
 
@@ -93,19 +28,19 @@ flowchart TD
 
   ➡️ **Einstellungen → Geräte & Dienste → Helfer → Helfer erstellen → Template → Sensor**
 
-  <sub>❗ Verwende statt `sensor.shellypro3em_xyz_leistung` den korrekten Sensornamen.</sub>
+  <sub>❗ Verwende statt `sensor.shellypro3em_xyz_leistung` den korrekten Sensornamen!</sub>
 
   |Attribut|Wert|
   |---|---|
   |Name|`Haus Stromzähler Leistung`|
-  |Zustand|`{{ states('sensor.shellypro3em_xyz_leistung') \| float(0) }}`|
+  |Zustand|`{{ states('sensor.shellypro3em_xyz_leistung') \| float(0) }}`<br><sub>⚠️ Verwende statt `sensor.shellypro3em_xyz_leistung` den korrekten Sensornamen!</sub>|
   |Maßeinheit|`W`|
   |Geräteklasse|`Leistung`|
   |Zustandsklasse|`Messwert`|
 
   ✔️ **Ergebnis**: `sensor.haus_stromzaehler_leistung`
 
-- ### Shelly Pro 3EM Berechnungssensoren
+- ### Shelly Pro 3EM Hilfssensoren zur Saldierungsberechnung
 
   - ### "ShellyPro3EM Leistung Import"
   
