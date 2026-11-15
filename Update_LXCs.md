@@ -19,39 +19,38 @@
   apt update && apt upgrade -y && apt autoremove -y && apt autoclean -y
   ```
 
-- #### Update Portainer:
+
+
+
+
+
+- #### Update Docker manager:
 
   <details>
-  <summary>Portainer LXC (Portainer Server)</summary>
 
-   ```bash
-  docker stop portainer && \
-  sleep 3 && \
-  docker rm portainer && \
-  sleep 3 && \
-  docker pull portainer/portainer-ce:lts && \
-  sleep 3 && \
-  docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts
-  ```
+    <summary>Dockhand server LXC</summary>
+  
+    ```bash
+    cd /home/dockhand && \
+    docker compose pull && \
+    docker compose up -d
+    ```
+    👉 Verify the `/home/dockhand` path and adjust it if necessary.
 
   </details>
 
   <details>
-  <summary>Other LXC (with Portainer Agent)</summary>
 
-  ```bash
-  docker stop portainer_agent && \
-  sleep 3 && \
-  docker rm portainer_agent && \
-  sleep 3 && \
-  docker pull portainer/agent:lts && \
-  sleep 3 && \
-  docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes portainer/agent:lts
-  ```
+    <summary>Dockhand remote LXC (with Hawser agent)</summary>
+  
+    ```bash
+    cd /home/hawser && \
+    docker compose pull && \
+    docker compose up -d
+    ```
+    👉 Verify the `/home/hawser` path and adjust it if necessary.
 
   </details>
-
-  <sub>👉 https://docs.portainer.io/start/upgrade/docker</sub>
 
 - #### Specific updates:
 
@@ -107,7 +106,9 @@
 
 ---
 
-## 3️⃣ In Portainer:
+## 3️⃣ In Docker manager:
 
-- Update and redeploy stack(s)
+- Redeploy the stack(s):
+  - Enable `Pull images`
+  - Enable `Force recreate` if host-side configuration (.env, server configs) changed without modifying the Docker Compose file
 - Remove unused images
