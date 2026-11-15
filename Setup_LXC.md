@@ -133,7 +133,7 @@ docker --version && docker-compose --version
   #### Create and navigate into the Hawser directory structure:
 
   ```bash
-  mkdir -p /home/hawser && cd $_
+  mkdir -p /home/hawser/stacks && cd $_/..
   ```
   
   #### Create Docker Compose file
@@ -155,6 +155,7 @@ docker --version && docker-compose --version
         - TOKEN=${HAWSER_TOKEN}
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
+        - /home/hawser/stacks:/data/stacks
   ```
   
   #### Create Docker enviroment file
