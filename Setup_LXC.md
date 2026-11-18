@@ -117,6 +117,12 @@ docker --version && docker-compose --version
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
         - /home/dockhand/data:/app/data
+      # Docker logging: keep max 3 log files of 10 MB each
+      logging:
+          driver: "json-file"
+          options:
+            max-size: "10m"
+            max-file: "3"
   ```
   
   #### Start Dockhand
@@ -150,12 +156,21 @@ docker --version && docker-compose --version
       container_name: hawser
       restart: unless-stopped
       ports:
-        - 2376:2376
+        - "2376:2376"
       environment:
         - TOKEN=${HAWSER_TOKEN}
+        # Storage path for stacks: compose files (mirrored from Dockhand) and relative bind mounts
+        - STACKS_DIR=/home/hawser/stacks
       volumes:
         - /var/run/docker.sock:/var/run/docker.sock
-        - /home/hawser/stacks:/data/stacks
+        # Bind mount for STACKS_DIR (must match the STACKS_DIR path on both sides for correct relative path resolution)
+        - /home/hawser/stacks:/home/hawser/stacks
+      # Docker logging: keep max 3 log files of 10 MB each
+      logging:
+          driver: "json-file"
+          options:
+            max-size: "10m"
+            max-file: "3"
   ```
   
   #### Create Docker enviroment file
